@@ -25,7 +25,7 @@ const tableProducts = `create table if not exists products(
     product_type varchar(50) null,
     price varchar(20),
     stock varchar(20) null,
-    notes text() null
+    notes text null
 )`;
 
 const tableAddOns = `create table if not exists addons(
@@ -37,11 +37,11 @@ const tableAddOns = `create table if not exists addons(
 
 const tableCategory = `create table if not exists categories(
     id int primary key auto_increment,
-    products_id int not null,
+    product_id int not null,
     categ_name varchar(100) null,
     service_fee varchar(20) null,
-    index(products_id),
-    foreign key(product_id) references product(id)
+    index(product_id),
+    foreign key(product_id) references products(id)
     on update cascade on delete cascade
 )`;
 
@@ -52,7 +52,7 @@ const tableCustomer = `create table if not exists customers(
     notes varchar(200) null
 )`;
 
-const tableBilling = `create table billings(
+const tableBilling = `create table if not exists billings(
     id int primary key auto_increment,
     user_id int not null,
     cust_id int not null,
@@ -67,11 +67,11 @@ const tableBilling = `create table billings(
     foreign key(user_id) references users(id) on update cascade on delete cascade,
     foreign key(cust_id) references customers(id) on update cascade on delete cascade,
     foreign key(category_id) references categories(id) on update cascade on delete cascade,
-    foreign key(addon_id) references addons(id) on update cascade on delete cascade,
+    foreign key(addon_id) references addons(id) on update cascade on delete cascade
 )`;
 
 
-const tableHistory = `create table history(
+const tableHistory = `create table if not exists history(
     id int primary key auto_increment,
     user_id int not null,
     category_id int not null,
@@ -84,10 +84,19 @@ const tableHistory = `create table history(
     
     foreign key(user_id) references users(id) on update cascade on delete cascade,
     foreign key(category_id) references categories(id) on update cascade on delete cascade,
-    foreign key(addon_id) references addons(id) on update cascade on delete cascade,
+    foreign key(addon_id) references addons(id) on update cascade on delete cascade
 )`;
 
+const tableShifts = `create table if not exists shifts(
+    id int primary key auto_increment,
+    user_id int not null,
+    checkin datetime default null,
+    checkout datetime default null,
+    revenue varchar(20) null,
 
+    index(user_id),
+    foreign key(user_id) references users(id) on delete cascade on update cascade
+)`;
 
 //Open Connection
 db.connect(error => {
@@ -128,6 +137,11 @@ db.connect(error => {
         if(err) throw err;
         console.log('Tabel History created..');
     });
+
+    db.query(tableShifts, (err, res) => {
+        if(err) throw err;
+        console.log('Tabel Shifts created..');
+    })
     
 });
 // db.end(err => {

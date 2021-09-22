@@ -18,7 +18,8 @@ USERS
 SHIFTS
 - id
 - user_id
-- date
+- checkin
+- checkout
 - revenue
 
 PRODUCTS

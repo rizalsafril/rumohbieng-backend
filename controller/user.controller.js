@@ -1,6 +1,5 @@
 const enkrip = require('bcrypt');
 const User = require('../models/Users');
-const jwt = require('jsonwebtoken');
 
 
 //validate request
