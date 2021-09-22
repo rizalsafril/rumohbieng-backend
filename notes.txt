@@ -1,0 +1,112 @@
+LEVEL
+-----
+Super admin
+Owner
+Operator
+cashier
+employee
+
+================= STRUKTUR DATABASE
+
+USERS
+- id
+- name
+- mobile
+- email
+- level
+
+SHIFTS
+- id
+- user_id
+- date
+- revenue
+
+PRODUCTS
+- id
+- product_name
+- product_type
+- price
+- stock
+- notes
+
+ADDONS
+- id
+- addon_name
+- price
+
+CUSTOMERS
+- id
+- cust_name
+- notes
+
+CATEGORIES
+- id
+- products_id
+- categ_name
+- service_fee
+
+BILLINGS
+- id 
+- user_id
+- cust_id
+- category_id
+- addon_id
+
+
+HISTORY
+- id
+- user_id
+- category_id
+- addon_id
+- datetime
+
+================================================
+
+
+
+Menu cashier
+- search produk/harga
+- print
+
+Lihat laporan
+Print laporan
+Jadwal shift
+Menu Keuangan
+stok barang
+
+---custom mount
+Untuk orang belanja tapi menu dan harganya belum ada
+
+---shift
+Shift option
+Current shift
+ --- starting cash in drawer(jumlah yang yang ada dilaci kasir/)
+     start shift
+
+
+---point of sales
+Add customer (search, create, list customer)
+List(billing list untuk simpan data customer, memudahkan proses pesanan baru jika pesanan lama belum bayar)
+  --new bill
+  -- open bils(list billing, time, since bill check) <-- menu ini bisa di klik untuk dipilih pembatalan pesanan per item
+List menu makanan
+Calculator
+   ----pilih item muncul sub menu
+	food quantity
+	sales type(harga yang mucul menurut inputan)
+	   --Dine in (harganya beda)
+	   --Gofood (harganya beda)
+	   --Grab food (harganya beda)
+	   --Take away
+	notes(Catalan)
+Charge (input uang dan metode bayar)
+jika sudah bayar, semua records di cashier terhapus, dan history masuk ke menu activity
+
+ACTIVITY
+list uang (jika diklik sebelahnya muncul menu ringkasan activity harga, nomor receipt, ket. bayar/cash atau transfer bank, jam transaksi.
+dan yang terakhir item barang)
+
+	
+
+
+

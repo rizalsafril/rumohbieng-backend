@@ -9,6 +9,7 @@ const User = function(user){
     this.email = user.email;
     this.nama = user.nama;
     this.password = user.password;
+    this.level = user.level;
 }
 
 User.create =  (newUser, result) => {

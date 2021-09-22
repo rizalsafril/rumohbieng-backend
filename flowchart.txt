@@ -1,0 +1,16 @@
+TAMPILAN UTAMA
+--------------
+Box DINE IN
+Box Take Away
+Box Grab Food
+Box Go Food
+
+
+BOX DINE IN
+-----------
+Box Meja 1
+Box Meja 2
+Box Meja 3
+Box Meja 4
+Box Meja 5
+Box Meja 6
