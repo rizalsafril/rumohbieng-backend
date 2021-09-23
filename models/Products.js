@@ -43,10 +43,8 @@ Product.findAll = result => {
                 result(err, null);
                 return;
             }
-            if(res.length){
-                result(null, res);
-                return;
-            }
+            result(null, res);
+
         });
 
     } catch(err){
@@ -71,8 +69,8 @@ Product.findOne = (id, result) => {
 
 Product.change = (id, data, result) => {
     try{
-        db.query('UPDATE products SET product_name = ?, product_type = ?, price = ?, stock = ?, notes = ?',
-        [data.product_name, data.product_type, data.price, data.stock, data.notes], (err, res) => {
+        db.query('UPDATE products SET product_name = ?, product_type = ?, price = ?, stock = ?, notes = ? WHERE id = ?'
+        [data.product_name, data.product_type, data.price, data.stock, data.notes, id], (err, res) => {
             if(err){
                 result(err, null);
                 return;
