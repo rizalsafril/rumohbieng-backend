@@ -18,3 +18,5 @@ router.delete('/:id', verifyToken, categories.removeOne);
 
 // delete all categories
 router.delete('/', verifyToken, categories.removeall);
+
+module.exports = router;

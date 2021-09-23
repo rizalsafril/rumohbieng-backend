@@ -9,8 +9,8 @@ exports.create = async(req, res) => {
 
     // constructor
     const addons = Addons({
-        addon_name = req.body.addon_name,
-        price = req.body.price,
+        addon_name : req.body.addon_name,
+        price : req.body.price,
     });
 
     Addons.create = (addons, (err, resp) => {

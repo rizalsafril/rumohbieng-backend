@@ -13,35 +13,29 @@ const User = function(user){
 }
 
 User.create =  (newUser, result) => {
-    try{
-        db.query(`SELECT * FROM users WHERE username = ? OR email = ?`, [
-            newUser.username, newUser.email
-        ], (err, res) => {
+    db.query(`SELECT * FROM users WHERE username = ? OR email = ?`, [
+        newUser.username, newUser.email
+    ], (err, res) => {
 
-            if(res.length){
-                result({kind: 'exists'}, null);
+        if(res.length !== 0){
+            result({kind: 'exists'}, null);
+            return;
+
+        } 
+        db.query('INSERT INTO users SET ?', newUser, (err, res) => {
+            if(err) {
+                console.log(`Error : ${err}`);
+                result(err, null);
                 return;
-
-            } 
-            db.query('INSERT INTO users SET ?', newUser, (err, res) => {
-                if(err) {
-                    console.log(`Error : ${err}`);
-                    result(err, null);
-                    return;
-                }
-                const token = generateAccesToken({
-                    username: newUser.username
-                })
-                // console.log("User created :", {id: res.insertId, ...newUser});
-                result(null, token);
+            }
+            let token = generateAccesToken({
+                username: newUser.username,
+                level: newUser.level
             })
-            
-        });
-
-    } catch(e){
-        result(e, null);
-    }
-
+            // console.log("User created :", {id: res.insertId, ...newUser});
+            result(null, token);
+        })
+    })
 }
 
 User.findById = (userId, result) => {
@@ -120,35 +114,33 @@ User.removeAll = result => {
 }
 
 User.login = (data, result) => {
+    try{
 
    db.query(`SELECT * FROM users WHERE username = ?`, 
     [data.username], (err, resp) => {
-        try{
      
-            if(!resp){
-                result({kind: 'not_found'}, null);
-                return;
-            }
-            const validPass = enkrip.compareSync(data.password, resp[0].password);
-            
-            if(!validPass){
-                result({kind: 'not_auth'}, null)
-                return;
-            } 
-
-            const token = generateAccesToken({
-                username: data.username
-            })
-            result(null, {
-                'token':token,
-                'username': data.username
-            });
-
+        if(!resp){
+            result({kind: 'not_found'}, null);
+            return;
         }
-        catch(e){
-            result(e, null);
-        }
-    })
+        const validPass = enkrip.compareSync(data.password, resp[0].password);
+        
+        if(!validPass){
+            result({kind: 'not_auth'}, null)
+            return;
+        } 
+
+        const token = generateAccesToken(data.username)
+        result(null, {
+            'token':token,
+            'username': data.username
+        });
+
+        })
+    }
+    catch(e){
+        result(e, null);
+    }
 }
 
 module.exports = User;

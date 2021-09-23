@@ -8,20 +8,20 @@ app.use(express.json());
 app.use(express.urlencoded({extended: true}));
 
 // Imported Routes
-const postRoutes = require('./router/posts');
 const userRoutes = require('./router/users');
 const addonRoutes = require('./router/addons');
 const categories = require('./router/categories');
 const products = require('./router/products');
 const history = require('./router/history');
+const customer = require('./router/customer');
 
 // Middlewre
-app.use('/posts', postRoutes);
 app.use('/users', userRoutes);
 app.use('/addons', addonRoutes);
 app.use('/categories', categories);
 app.use('/products', products);
 app.use('/history', history);
+app.use('/customer', customer);
 
 // Routes
 app.get('/', (req, res) => {

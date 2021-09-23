@@ -5,38 +5,44 @@ const User = require('../models/Users');
 //validate request
 exports.create = async(req, res) => {
     
-    if(!req.body){
-        res.status(400).send({
-            message: 'Content can not be empty!'
+    // create a user
+    try{
+        if(!req.body){
+            res.status(400).send({
+                message: 'Content can not be empty!'
+            })
+        }
+        const salt = await enkrip.genSalt(10);
+        const user = new User({
+            username: req.body.username,
+            email: req.body.email,
+            nama: req.body.nama,
+            password: await enkrip.hash(req.body.password, salt),
+            level: req.body.level
+        });
+        // Save customer
+        await User.create(user, (err, resp) => {
+            if (err) {
+                if(err.kind === 'exists'){
+                    res.status(403).send({
+                        message: 'Username or Email already exists'
+                    })
+                }
+                else {
+                    res.status(500).send({
+                        message: err.message || 'Some error occured'
+                    });
+                }
+            }
+            else
+                res.status(201).json(resp);
         })
+    }catch(err){
+        res.status(500).send({
+            message: err.message || 'Some error occured'
+        });
     }
 
-    const salt = await enkrip.genSalt(10);
-
-    // create a user
-    const user = new User({
-        username: req.body.username,
-        email: req.body.email,
-        nama: req.body.nama,
-        password: await enkrip.hash(req.body.password, salt)
-    })
-
-    
-    // Save customer
-   User.create(user, async(err, resp) => {
-        if (err) {
-            if(err.kind === 'exists'){
-                res.status(403).send({
-                    message: 'Username or Email already exists'
-                })
-            }
-            res.status(500).send({
-                message: err.message || 'Some error occured'
-            });
-        }
-        else
-            res.status(201).json(resp);
-    })
     
 }
 
@@ -138,7 +144,7 @@ exports.deleteAll = async(req, res) => {
 }
 
 exports.login = async(req, res) => {
-    data = req.body;
+    const data = req.body;
     User.login(data, (err, resp) => {
         if (err) {
             if (err.kind === 'not_found') {

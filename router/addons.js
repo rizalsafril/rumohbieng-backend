@@ -17,3 +17,5 @@ router.delete('/:id', verifyToken, addons.removeOne);
 
 //delete all addons
 router.delete('/', verifyToken, addons.removeAll);
+
+module.exports = router;

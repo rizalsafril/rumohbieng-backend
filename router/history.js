@@ -17,3 +17,5 @@ router.delete('/:id', verifyToken, history.removeOne);
 
 //delete all history
 router.delete('/', verifyToken, history.removeAll);
+
+module.exports = router;

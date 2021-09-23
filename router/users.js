@@ -12,7 +12,7 @@ router.get('/', verifyToken, user.findAll);
 router.post('/', user.login);
 
 // Create a new user
-router.post('/create', verifyToken, user.create);
+router.post('/create', user.create);
 
 // Retrieve  a single customer
 router.get('/:userId', verifyToken, user.findOne);

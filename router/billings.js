@@ -17,3 +17,6 @@ router.delete('/:id', verifyToken, billings.removeOne);
 
 //delete all
 router.delete('/', verifyToken, billings.removeAll);
+
+
+module.exports = router;

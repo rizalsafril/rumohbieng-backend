@@ -19,3 +19,5 @@ router.delete('/:productId', verifyToken, product.removeOne);
 
 // delete all
 router.delete('/', verifyToken, product.removeAll);
+
+module.exports = router;
