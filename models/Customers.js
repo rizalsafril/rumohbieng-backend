@@ -82,3 +82,35 @@ Customer.removeAll = result => {
         result(err, null);
     }
 }
+
+
+Customer.findAll = result => {
+    try{
+        db.query('SELECT * FROM customers', (err, res) => {
+            if(err){
+                result(err, null);
+                return;
+            }
+            result(null, res);
+        })
+    }catch(err){
+        result(err, null);
+    }
+}
+
+
+Customer.findOne = (id, result) => {
+    try{
+        db.query('SELECT * FROM customers WHERE id = ?', id, (err, res) => {
+            if(err){
+                result(err, null);
+                return;
+            }
+            result(null, res);
+        });
+    }catch(err){
+        result(err, nul);
+    }
+}
+
+module.exports = Customer;

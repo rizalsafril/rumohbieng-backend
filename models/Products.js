@@ -54,7 +54,7 @@ Product.findAll = result => {
 
 Product.findOne = (id, result) => {
     try{
-        db.query('SELECT * FROM products WHERE id = ?', [id], (err, res) => {
+        db.query('SELECT * FROM products WHERE id = ?', id, (err, res) => {
             if(err){
                 result(err, null);
                 return;
