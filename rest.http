@@ -70,7 +70,7 @@ Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImtleXJhIiwi
 
 
 ###
-get http://127.0.0.1:3200/history/2
+get http://127.0.0.1:3200/history
 Content-Type: application/json
 Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImtleXJhIiwibGV2ZWwiOiJvcGVyYXRvciIsImlhdCI6MTYzMjUwMjI0NSwiZXhwIjoxNjMyNTA5NDQ1fQ.PGllXlyLaLMbC8nXh1a_T1ag5tsgQDUSC_8C3zbvHm8
 
