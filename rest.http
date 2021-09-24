@@ -65,7 +65,19 @@ Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImtleXJhIiwi
 {
     "user_id": 1,
     "cust_id": 2,
-    "category_id": 1
+    "category_id": 2
+}
+
+
+###
+get http://127.0.0.1:3200/history/2
+Content-Type: application/json
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImtleXJhIiwibGV2ZWwiOiJvcGVyYXRvciIsImlhdCI6MTYzMjUwMjI0NSwiZXhwIjoxNjMyNTA5NDQ1fQ.PGllXlyLaLMbC8nXh1a_T1ag5tsgQDUSC_8C3zbvHm8
+
+{
+    "user_id": 1,
+    "cust_id": 1,
+    "category_id": 2
 }
 
 

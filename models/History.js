@@ -48,21 +48,26 @@ History.removeOne = (id, result) => {
 }
 
 History.removeAll = result => {
-    History.removeAll((err, resp) => {
+    db.query('DELETE FROM history', (err, res) => {
         if(err){
             result(err, null);
-            return null;
+            return;
         }
-        if(resp.affectedRows === 0){
+        if(res.affectedRows === 0){
             result({kind: 'not_found'}, null);
             return;
         }
-        result(null, resp);
+        result(null, res);
     })
 }
 
 History.findOne = (id, result) => {
-    db.query('SELECT * FROM history WHERE id = ?', id, (err, res) => {
+    db.query('SELECT history.id, users.id as userid, users.nama as operator, customers.cust_name,'+ 
+    'categories.service_fee, products.product_name, history.time '+
+    'FROM history LEFT JOIN users ON history.user_id=users.id '+
+    'LEFT JOIN customers ON history.cust_id=customers.id '+
+    'LEFT JOIN categories ON history.category_id=categories.id '+ 
+    'LEFT JOIN products ON categories.product_id=products.id WHERE history.id = ?', [id], (err, res) => {
         if(err){
             result(err, null);
             return;
@@ -78,7 +83,7 @@ History.findOne = (id, result) => {
 
 History.findAll = result => {
     db.query('SELECT history.id, users.id as userid, users.nama as operator, customers.cust_name, categories.service_fee,'+
-    'products.product_name FROM billings LEFT JOIN users ON history.user_id=users.id '+
+    'products.product_name, history.time FROM history LEFT JOIN users ON history.user_id=users.id '+
     'LEFT JOIN customers ON history.cust_id=customers.id '+
     'LEFT JOIN categories ON history.category_id=categories.id '+ 
     'LEFT JOIN products ON categories.product_id=products.id', (err, res) => {
