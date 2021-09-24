@@ -1,40 +1,35 @@
 const db = require('../database/db');
 
 const Categories = function(items){
-    this.products_id = items.products_id;
+    this.product_id = items.product_id;
     this.categ_name = items.categ_name;
     this.service_fee = items.service_fee;
 }
 
 Categories.create = (data, result) => {
-    try{
-        db.query('SELECT * FROM categories WHERE categ_name = ? ', data.categ_name, (err, res) => {
+    db.query('SELECT * FROM categories WHERE product_id = ? ', data.product_id, (err, res) => {
+        if(err){
+            result(err, null);
+            return;
+        }
+        if(res.length !== 0){
+            result({kind: 'exists'}, null);
+            return;
+        }
+
+        db.query(`INSERT INTO categories SET ?`, data, (err, resp) => {
             if(err){
                 result(err, null);
                 return;
-            }
-            if(res.length){
-                result({kind: 'exists'}, null);
-                return;
-            }
-
-            db.query('INSERT INTO categories SET products_id = ?, categ_name = ?, service_fee = ?', data, (err, resp) => {
-                if(err){
-                    result(err, null);
-                    return;
-                } 
-                result(null, resp)
-            });
-        })
-    }catch(err){
-        result(err, null);
-    }
+            } 
+            result(null, {id: resp.insertId, ...data})
+        });
+    })
 }
 
 Categories.change = (id, data, result) => {
-    try{
-        db.query('UPDATE customers SET products_id = ?, categ_name = ? WHERE id = ?', 
-        [data.products_id, data.categ_name, id], (err, res) => {
+    db.query('UPDATE categories SET product_id = ?, categ_name = ? WHERE id = ?', 
+        [data.product_id, data.categ_name, id], (err, res) => {
             if(err){
                 result(err, null);
                 return;
@@ -43,17 +38,14 @@ Categories.change = (id, data, result) => {
                 result({kind: 'not_found'}, null);
                 return;
             }
-            result(null, {id: id, ...res});
-        })
-    }catch(err){
-        result(err, null);
-    }
+            result(null, {id: id, ...data});
+    })
 }
 
 
 Categories.removebyId = (id, result) => {
     try{
-        db.query('DELETE FROM customers WHERE id = ?', id, (err, res) => {
+        db.query('DELETE FROM categories WHERE id = ?', id, (err, res) => {
             if(err){
                 result(err, null);
                 return;
@@ -62,6 +54,7 @@ Categories.removebyId = (id, result) => {
                 result({kind: 'not_found'}, null);
                 return;
             }
+            result(null, res);
         });
     } catch(err){
         result(err, null);

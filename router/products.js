@@ -8,8 +8,11 @@ const verifyToken = require('../jwt/verifyToken');
 // retrive all products
 router.get('/', verifyToken, product.getAll);
 
+// retrieve product by id
+router.get('/:productId', verifyToken, product.getOne);
+
 // create a new product
-router.post('/create', verifyToken, product.create);
+router.post('/', verifyToken, product.create);
 
 // update product
 router.put('/:productId', verifyToken, product.update);

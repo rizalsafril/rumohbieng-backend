@@ -5,14 +5,14 @@ const user = require('../controller/user.controller');
 
 const verifyToken = require('../jwt/verifyToken');
 
-// retrive all users
-router.get('/', verifyToken, user.findAll);
-
 //Login user
 router.post('/', user.login);
 
+// retrive all users
+router.get('/', verifyToken, user.findAll);
+
 // Create a new user
-router.post('/create', user.create);
+router.post('/create', verifyToken, user.create);
 
 // Retrieve  a single customer
 router.get('/:userId', verifyToken, user.findOne);

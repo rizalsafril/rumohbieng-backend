@@ -1,7 +1,7 @@
 const db = require('../database/db');
 const enkrip = require('bcrypt');
 
-const generateAccesToken = require('../jwt/generateToken');
+const {generateAccesToken} = require('../jwt/generateToken');
 
 // Constructor
 const User = function(user){
@@ -70,7 +70,6 @@ User.updateById = (userId, user, result) => {
     db.query(`UPDATE users SET email = ?, nama = ?, password = ? WHERE id = ?`, 
     [user.email, user.nama, user.password, parseInt(userId)], (err, resp) => {
         if(err){
-            console.log('Error :', err);
             result(err, null);
             return;
         }
@@ -79,7 +78,7 @@ User.updateById = (userId, user, result) => {
             result({kind: 'not_found'}, null);
             return;
         }
-        console.log('User updated: ', {id: userId, ...user});
+
         result(null, {id: parseInt(userId), ...user});
     });
 }
@@ -114,33 +113,34 @@ User.removeAll = result => {
 }
 
 User.login = (data, result) => {
-    try{
-
-   db.query(`SELECT * FROM users WHERE username = ?`, 
+    db.query(`SELECT * FROM users WHERE username = ?`, 
     [data.username], (err, resp) => {
-     
-        if(!resp){
-            result({kind: 'not_found'}, null);
+
+        if(err){
+            result(err, null);
             return;
         }
+
+        if(resp.length === 0){
+            result({kind: 'not_auth'}, null)
+            return;  
+        } 
+
         const validPass = enkrip.compareSync(data.password, resp[0].password);
         
         if(!validPass){
             result({kind: 'not_auth'}, null)
             return;
         } 
-
-        const token = generateAccesToken(data.username)
-        result(null, {
-            'token':token,
-            'username': data.username
-        });
-
+    
+        const token = generateAccesToken({
+            username: data.username,
+            level: resp[0].level
         })
-    }
-    catch(e){
-        result(e, null);
-    }
+
+        result(null, token);
+    })
 }
+
 
 module.exports = User;

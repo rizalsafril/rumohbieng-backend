@@ -1,58 +1,70 @@
 const Categories = require('../models/Categories');
 
-exports.create = (req, res) => {
-    if(!req.body){
-        res.status(400).send({
-            message: 'Form cannot be empty'
+exports.create = async(req, res) => {
+    try{
+        if(!req.body){
+            res.status(400).send({
+                message: 'Form cannot be empty'
+            })
+        }
+    
+        const categories = new Categories({
+            product_id: req.body.product_id,
+            categ_name: req.body.categ_name,
+            service_fee: req.body.service_fee
+        })
+    
+        Categories.create(categories, (err, resp) => {
+            if(err){
+                if(err.kind === 'exists'){
+                    res.status(403).send({
+                        message: 'This produk ID already exists'
+                    })
+                } else {
+                    res.status(500).send({
+                        message: err.message || 'Some errors occured'
+                    })
+                }
+            } else {
+                res.status(201).send(resp);
+            }
+        })
+    }catch(err){
+        res.status(500).send({
+            message: err.message || 'Error in SQL query'
         })
     }
-
-    const categories = Categories({
-        products_id: req.body.products_id,
-        categ_name: req.body.categ_name,
-        service_fee: req.body.service_fee
-    })
-
-    Categories.create(categories, (err, resp) => {
-        if(err){
-            if(err.kind === 'exists'){
-                res.status(403).send({
-                    message: 'This category already exists'
-                })
-            } else {
-                res.status(500).send({
-                    message: err.message || 'Some errors occured'
-                })
-            }
-        } else {
-            res.status(201).send(resp);
-        }
-    })
 }
 
-exports.change = (req, res) => {
-    if(!req.body){
-        res.status(400).send({
-            message: 'Form cannot be empty'
-        })
-        return;
-    }
-
-    Categories.change(req.params.id, new Categories(req.body), (err, resp) => {
-        if(err){
-            if(err.kind === 'not_found'){
-                res.status(403).send({
-                    message: 'This categories not found'
-                })
-            } else {
-                res.status(500).send({
-                    message: err.message || 'Some errors occured'
-                })
-            } 
-        } else {
-            res.status(201).send(resp);
+exports.change = async(req, res) => {
+    try{
+        if(!req.body){
+            res.status(400).send({
+                message: 'Form cannot be empty'
+            })
+            return;
         }
-    })
+    
+        Categories.change(req.params.id, new Categories(req.body), (err, resp) => {
+            if(err){
+                if(err.kind === 'not_found'){
+                    res.status(403).send({
+                        message: 'This categories not found'
+                    })
+                } else {
+                    res.status(500).send({
+                        message: err.message || 'Some errors occured'
+                    })
+                } 
+            } else {
+                res.status(201).send(resp);
+            }
+        })
+    }catch(err){
+        res.status(500).send({
+            message: err.message || 'SQL Query errors'
+        })
+    }
 }
 
 

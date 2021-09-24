@@ -21,7 +21,7 @@ exports.create = async(req, res) => {
             level: req.body.level
         });
         // Save customer
-        await User.create(user, (err, resp) => {
+        User.create(user, (err, resp) => {
             if (err) {
                 if(err.kind === 'exists'){
                     res.status(403).send({
@@ -54,7 +54,7 @@ exports.findAll = (req, res) => {
                 message: err.message || 'Some error occured...!'
             })
         }
-        else res.json(resp);
+        else res.send(resp);
     })
 }
 
@@ -78,36 +78,51 @@ exports.findOne = async(req, res) => {
 // update user
 exports.update = async(req, res) => {
     // validate request
-    if(!req.body.email){
-        res.status(400).send({
-            message: 'Email can not be empty!'
-        })
-    }
-    if(!req.body.password){
-        res.status(400).send({
-            message: 'Password can not be empty!'
-        })
-    }
+    try{
+        if(!req.body.email){
+            res.status(400).send({
+                message: 'Email can not be empty!'
+            })
+        }
+        if(!req.body.password){
+            res.status(400).send({
+                message: 'Password can not be empty!'
+            })
+        }
+    
+        if(!req.body.nama) {
+            res.status(400).send({
+                message: 'Nama Lengkap can not be empty!'
+            })
+        }
 
-    if(!req.body.nama) {
-        res.status(400).send({
-            message: 'Nama Lengkap can not be empty!'
+        const salt = await enkrip.genSalt(10);
+        const user = new User({
+            username: req.body.username,
+            email: req.body.email,
+            nama: req.body.nama,
+            password: await enkrip.hash(req.body.password, salt),
+            level: req.body.level
+        });
+    
+        User.updateById(req.params.userId, user, (err, resp) => {
+            if(err){
+                if(err.kind === 'not_found'){
+                    res.status(404).send({
+                        message: `Not found user with id ${req.params.userId}`
+                    })
+                } else {
+                    res.status(500).send({
+                        message: `Error updating user with id ${req.params.userId}`
+                    })
+                }
+            } else res.send(resp)
+        })
+    }catch(err){
+        res.status(500).send({
+            message: err.message || 'Something error on mysql query'
         })
     }
-
-    User.updateById(req.params.userId, new User(req.body), (err, resp) => {
-        if(err){
-            if(err.kind === 'not_found'){
-                res.status(404).send({
-                    message: `Not found user with id ${req.params.userId}`
-                })
-            } else {
-                res.status(500).send({
-                    message: `Error updating user with id ${req.params.userId}`
-                })
-            }
-        } else res.send(resp)
-    })
 }
 
 // Delete one user
@@ -144,28 +159,35 @@ exports.deleteAll = async(req, res) => {
 }
 
 exports.login = async(req, res) => {
-    const data = req.body;
-    User.login(data, (err, resp) => {
-        if (err) {
-            if (err.kind === 'not_found') {
-                res.status(404).send({
-                    message: 'You have no access!'
-                });
-            }
+    try{
+        const data = req.body;
+        User.login(data, (err, resp) => {
+            if (err) {
+                if (err.kind === 'not_found') {
+                    res.status(404).send({
+                        message: 'You have no access!'
+                    });
+                }
 
-            if(err.kind === 'not_auth'){
-                res.status(404).send({
-                    message: 'You are not authorized'
-                })
-            }
+                if(err.kind === 'not_auth'){
+                    res.status(404).send({
+                        message: 'You are not authorized'
+                    })
+                }
 
-            else {
-                res.status(500).send({
-                    message: err.message || 'Some error occured'
-                });
+                else {
+                    res.status(500).send({
+                        message: err.message || 'Some error occured'
+                    });
+                }
+            } else {
+                res.status(201).json(resp);
             }
-        } else {
-            res.status(201).json(resp);
-        }
-    })
+        });
+
+    }catch(err){
+        res.status(500).send({
+            message: err.message || 'SQL query errors'
+        })
+    }
 }

@@ -1,0 +1,58 @@
+post http://127.0.0.1:3200/users
+Content-Type: application/json
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InJpemFsIiwibGV2ZWwiOiJvcGVyYXRvciIsImlhdCI6MTYzMjQ3MDcxNCwiZXhwIjoxNjMyNDc3OTE0fQ.AVj_kDt9l5fgoyYyzF0VfXDTUbiNK-9c3BKS9yKvw8o
+
+{
+    "username": "anu",
+    "password": "inu",
+    "nama": "Keyra Almira",
+    "email": "keyra@gmail.com",
+    "level": "operator"
+}
+
+###
+delete http://127.0.0.1:3200/users/3
+Content-Type: application/json
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InJpemFsIiwibGV2ZWwiOiJvcGVyYXRvciIsImlhdCI6MTYzMjQ2MTgyMiwiZXhwIjoxNjMyNDY5MDIyfQ.hkd5wa7MXiiwo8JHZ1gHwLEOHBB9p3CPhyXZQ0eLLwk
+
+{
+    "email": "rizal.safril@gmail.com",
+    "password": "safrils",
+    "nama": "Safrizal"
+}
+
+
+###
+post http://127.0.0.1:3200/products
+Content-Type: application/json
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImtleXJhIiwibGV2ZWwiOiJvcGVyYXRvciIsImlhdCI6MTYzMjQ3MDc0NiwiZXhwIjoxNjMyNDc3OTQ2fQ.YNYKFXWsR_kOuVLwufHOwbl8z0gMoIsT1hFTsFYjTBQ
+
+{
+    "product_name": "Mie Udang",
+    "product_type": "Makanan",
+    "price": 15000,
+    "stock": 25,
+    "notes": "Yang pedas"
+}
+
+###
+post http://127.0.0.1:3200/categories
+Content-Type: application/json
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImtleXJhIiwibGV2ZWwiOiJvcGVyYXRvciIsImlhdCI6MTYzMjQ3MDc0NiwiZXhwIjoxNjMyNDc3OTQ2fQ.YNYKFXWsR_kOuVLwufHOwbl8z0gMoIsT1hFTsFYjTBQ
+
+{
+    "product_id": 4,
+    "categ_name": "grab",
+    "service_fee": 20000
+}
+
+# {
+#   "fieldCount": 0,
+#   "affectedRows": 1,
+#   "insertId": 1,
+#   "serverStatus": 2,
+#   "warningCount": 0,
+#   "message": "",
+#   "protocol41": true,
+#   "changedRows": 0
+# }

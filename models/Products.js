@@ -11,7 +11,7 @@ const Product = function(product){
 
 Product.create = (data, result) => {
     try{
-        db.query(`SELECT * FROM products WHERE product_name = ${data.product_name}`, (err, res) =>{
+        db.query(`SELECT * FROM products WHERE product_name = ?`, data.product_name, (err, res) =>{
             if(err){
                 result(err, null);
                 return;
@@ -31,6 +31,7 @@ Product.create = (data, result) => {
             })
 
         })
+
     }catch(e){
         result(e, null);
     }
@@ -68,9 +69,8 @@ Product.findOne = (id, result) => {
 }
 
 Product.change = (id, data, result) => {
-    try{
-        db.query('UPDATE products SET product_name = ?, product_type = ?, price = ?, stock = ?, notes = ? WHERE id = ?'
-        [data.product_name, data.product_type, data.price, data.stock, data.notes, id], (err, res) => {
+    db.query('UPDATE products SET product_name = ?, product_type = ?, price = ?, stock = ?, notes = ? WHERE id = ?',
+        [data.product_name, data.product_type, data.price, data.stock, data.notes, parseInt(id)], (err, res) => {
             if(err){
                 result(err, null);
                 return;
@@ -84,9 +84,6 @@ Product.change = (id, data, result) => {
 
             result(null, {id: id, ...data});
         })
-    } catch(err) {
-        result(err, null);
-    }
 }
 
 Product.remove = (id, result) => {

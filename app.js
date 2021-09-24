@@ -1,5 +1,6 @@
 const express = require('express')
 const app = express();
+require('dotenv/config');
 
 // parse requests of content-type: application/json
 app.use(express.json());
@@ -23,10 +24,16 @@ app.use('/products', products);
 app.use('/history', history);
 app.use('/customer', customer);
 
+//The 404 Route (ALWAYS Keep this as the last route)
+app.get('*', function(req, res){
+    res.status(404).send({
+        message: '404 Error page'
+    });
+  });
 // Routes
 app.get('/', (req, res) => {
     res.send('We are on home')
 })
 //Listen to the server
-app.listen(3000);
+app.listen(process.env.PORT);
 

@@ -7,11 +7,14 @@ const categories = require('../controller/categories.controller');
 // get all categories
 router.get('/', verifyToken, categories.findAll);
 
+// create category
+router.post('/', verifyToken, categories.create);
+
 // get category by id
 router.get('/:id', verifyToken, categories.findById);
 
 //change categories
-router.put('/:id', verifyToken, categories.findById);
+router.put('/:id', verifyToken, categories.change);
 
 // delete by id
 router.delete('/:id', verifyToken, categories.removeOne);
