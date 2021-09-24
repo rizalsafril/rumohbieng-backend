@@ -28,12 +28,6 @@ const tableProducts = `create table if not exists products(
     notes text null
 )`;
 
-const tableAddOns = `create table if not exists addons(
-    id int primary key auto_increment,
-    addon_name varchar(100) null,
-    price varchar(20) null
-)`;
-
 
 const tableCategory = `create table if not exists categories(
     id int primary key auto_increment,
@@ -57,17 +51,14 @@ const tableBilling = `create table if not exists billings(
     user_id int not null,
     cust_id int not null,
     category_id int not null,
-    addon_id int not null,
     
     index(user_id),
     index(cust_id),
     index(category_id),
-    index(addon_id),
     
     foreign key(user_id) references users(id) on update cascade on delete cascade,
     foreign key(cust_id) references customers(id) on update cascade on delete cascade,
-    foreign key(category_id) references categories(id) on update cascade on delete cascade,
-    foreign key(addon_id) references addons(id) on update cascade on delete cascade
+    foreign key(category_id) references categories(id) on update cascade on delete cascade
 )`;
 
 
@@ -75,16 +66,13 @@ const tableHistory = `create table if not exists history(
     id int primary key auto_increment,
     user_id int not null,
     category_id int not null,
-    addon_id int not null,
     time datetime default null,
     
     index(user_id),
     index(category_id),
-    index(addon_id),
     
     foreign key(user_id) references users(id) on update cascade on delete cascade,
-    foreign key(category_id) references categories(id) on update cascade on delete cascade,
-    foreign key(addon_id) references addons(id) on update cascade on delete cascade
+    foreign key(category_id) references categories(id) on update cascade on delete cascade
 )`;
 
 const tableShifts = `create table if not exists shifts(
@@ -111,11 +99,6 @@ db.connect(error => {
     db.query(tableProducts, (err, res) => {
         if(err) throw err;
         console.log('Tabel Products created..');
-    });
-
-    db.query(tableAddOns, (err, res) => {
-        if(err) throw err;
-        console.log('Tabel Addons created..');
     });
 
     db.query(tableCategory, (err, res) => {

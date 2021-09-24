@@ -7,7 +7,7 @@ const Categories = function(items){
 }
 
 Categories.create = (data, result) => {
-    db.query('SELECT * FROM categories WHERE product_id = ? ', data.product_id, (err, res) => {
+    db.query('SELECT * FROM categories WHERE product_id = ? AND categ_name = ?', [data.product_id, data.categ_name], (err, res) => {
         if(err){
             result(err, null);
             return;

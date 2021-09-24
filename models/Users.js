@@ -56,7 +56,7 @@ User.findById = (userId, result) => {
 }
 
 User.getAll = result => {
-    db.query(`SELECT * FROM users`, (err, resp) => {
+    db.query(`SELECT id, username, nama, email, level FROM users`, (err, resp) => {
         if(err){
             console.log(`Error: ${err}`);
             result(err, null);

@@ -10,19 +10,24 @@ app.use(express.urlencoded({extended: true}));
 
 // Imported Routes
 const userRoutes = require('./router/users');
-const addonRoutes = require('./router/addons');
 const categories = require('./router/categories');
 const products = require('./router/products');
 const history = require('./router/history');
 const customer = require('./router/customer');
+const billing = require('./router/Billings');
 
 // Middlewre
 app.use('/users', userRoutes);
-app.use('/addons', addonRoutes);
 app.use('/categories', categories);
 app.use('/products', products);
 app.use('/history', history);
 app.use('/customer', customer);
+app.use('/billings', billing);
+
+// Routes
+app.get('/', (req, res) => {
+    res.send('We are on home')
+})
 
 //The 404 Route (ALWAYS Keep this as the last route)
 app.get('*', function(req, res){
@@ -30,10 +35,7 @@ app.get('*', function(req, res){
         message: '404 Error page'
     });
   });
-// Routes
-app.get('/', (req, res) => {
-    res.send('We are on home')
-})
+  
 //Listen to the server
 app.listen(process.env.PORT);
 

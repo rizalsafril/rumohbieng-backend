@@ -6,6 +6,9 @@ const billings = require('../controller/billings.controller');
 // get all billings
 router.get('/', verifyToken, billings.findAll);
 
+// post a billings
+router.post('/', verifyToken, billings.create);
+
 //get spesific billings
 router.get('/:id', verifyToken, billings.findOne);
 

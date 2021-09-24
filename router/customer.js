@@ -6,6 +6,9 @@ const customer = require('../controller/customer.controller');
 // show all customers
 router.get('/', verifyToken, customer.findAll);
 
+// Create customers
+router.post('/', verifyToken, customer.create);
+
 // show by id
 router.get('/:id', verifyToken, customer.findOne);
 

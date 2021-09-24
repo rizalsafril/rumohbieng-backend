@@ -1,10 +1,10 @@
-post http://127.0.0.1:3200/users
+put http://127.0.0.1:3200/users/1
 Content-Type: application/json
-Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InJpemFsIiwibGV2ZWwiOiJvcGVyYXRvciIsImlhdCI6MTYzMjQ3MDcxNCwiZXhwIjoxNjMyNDc3OTE0fQ.AVj_kDt9l5fgoyYyzF0VfXDTUbiNK-9c3BKS9yKvw8o
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImtleXJhIiwibGV2ZWwiOiJvcGVyYXRvciIsImlhdCI6MTYzMjQ4NzQ2NCwiZXhwIjoxNjMyNDk0NjY0fQ.8xgVj7b7_MqkM2OG62OVn5eKhBuqhO9O2vqmx6ixqAI
 
 {
-    "username": "anu",
-    "password": "inu",
+    "username": "keyra",
+    "password": "keyra1818",
     "nama": "Keyra Almira",
     "email": "keyra@gmail.com",
     "level": "operator"
@@ -23,28 +23,51 @@ Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InJpemFsIiwi
 
 
 ###
-post http://127.0.0.1:3200/products
+get http://127.0.0.1:3200/products
 Content-Type: application/json
-Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImtleXJhIiwibGV2ZWwiOiJvcGVyYXRvciIsImlhdCI6MTYzMjQ3MDc0NiwiZXhwIjoxNjMyNDc3OTQ2fQ.YNYKFXWsR_kOuVLwufHOwbl8z0gMoIsT1hFTsFYjTBQ
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImtleXJhIiwibGV2ZWwiOiJvcGVyYXRvciIsImlhdCI6MTYzMjQ4NzQ2NCwiZXhwIjoxNjMyNDk0NjY0fQ.8xgVj7b7_MqkM2OG62OVn5eKhBuqhO9O2vqmx6ixqAI
 
 {
-    "product_name": "Mie Udang",
-    "product_type": "Makanan",
-    "price": 15000,
-    "stock": 25,
-    "notes": "Yang pedas"
+    "product_name": "Teh Dingin",
+    "product_type": "Minuman",
+    "price": 7000,
+    "stock": 100,
+    "notes": "Yang dingin"
 }
 
 ###
-post http://127.0.0.1:3200/categories
+get http://127.0.0.1:3200/categories
 Content-Type: application/json
-Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImtleXJhIiwibGV2ZWwiOiJvcGVyYXRvciIsImlhdCI6MTYzMjQ3MDc0NiwiZXhwIjoxNjMyNDc3OTQ2fQ.YNYKFXWsR_kOuVLwufHOwbl8z0gMoIsT1hFTsFYjTBQ
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImtleXJhIiwibGV2ZWwiOiJvcGVyYXRvciIsImlhdCI6MTYzMjQ4NzQ2NCwiZXhwIjoxNjMyNDk0NjY0fQ.8xgVj7b7_MqkM2OG62OVn5eKhBuqhO9O2vqmx6ixqAI
 
 {
-    "product_id": 4,
+    "product_id": 2,
     "categ_name": "grab",
-    "service_fee": 20000
+    "service_fee": 21000
 }
+
+###
+get http://127.0.0.1:3200/customer
+Content-Type: application/json
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImtleXJhIiwibGV2ZWwiOiJvcGVyYXRvciIsImlhdCI6MTYzMjQ4NzQ2NCwiZXhwIjoxNjMyNDk0NjY0fQ.8xgVj7b7_MqkM2OG62OVn5eKhBuqhO9O2vqmx6ixqAI
+
+{
+    "cust_name": "Reza",
+    "notes": "Take away"
+}
+
+
+###
+post http://127.0.0.1:3200/billings
+Content-Type: application/json
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImtleXJhIiwibGV2ZWwiOiJvcGVyYXRvciIsImlhdCI6MTYzMjQ3OTk5OSwiZXhwIjoxNjMyNDg3MTk5fQ.m3IfOgGcgmEmyJOQ8GfmdWoNHFQVjhGflEEImGcBpAI
+
+{
+    "user_id": 1,
+    "cust_id": 3,
+    "category_id": 2
+}
+
 
 # {
 #   "fieldCount": 0,

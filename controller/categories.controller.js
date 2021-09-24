@@ -80,7 +80,9 @@ exports.removeOne = (req, res) => {
                     message: err.message || 'Some error occured'
                 })
             }
-        } else res.status(200).send(resp);
+        } else res.status(200).send({
+            message: 'Category deleted'
+        });
     })
 }
 
