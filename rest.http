@@ -1,4 +1,4 @@
-put http://127.0.0.1:3200/users/1
+post http://127.0.0.1:3200/users
 Content-Type: application/json
 Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImtleXJhIiwibGV2ZWwiOiJvcGVyYXRvciIsImlhdCI6MTYzMjQ4NzQ2NCwiZXhwIjoxNjMyNDk0NjY0fQ.8xgVj7b7_MqkM2OG62OVn5eKhBuqhO9O2vqmx6ixqAI
 
@@ -25,47 +25,47 @@ Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InJpemFsIiwi
 ###
 get http://127.0.0.1:3200/products
 Content-Type: application/json
-Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImtleXJhIiwibGV2ZWwiOiJvcGVyYXRvciIsImlhdCI6MTYzMjQ4NzQ2NCwiZXhwIjoxNjMyNDk0NjY0fQ.8xgVj7b7_MqkM2OG62OVn5eKhBuqhO9O2vqmx6ixqAI
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImtleXJhIiwibGV2ZWwiOiJvcGVyYXRvciIsImlhdCI6MTYzMjQ5NjgwMCwiZXhwIjoxNjMyNTA0MDAwfQ.TIFPy-nDAUOtjyxxAuLwOmIDDMsGsjHYbJ6YNH9kyks
 
 {
-    "product_name": "Teh Dingin",
-    "product_type": "Minuman",
-    "price": 7000,
-    "stock": 100,
-    "notes": "Yang dingin"
+    "product_name": "Mie Udang",
+    "product_type": "Makanan",
+    "price": 16000,
+    "stock": 85,
+    "notes": "Yang maknyus"
 }
 
 ###
 get http://127.0.0.1:3200/categories
 Content-Type: application/json
-Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImtleXJhIiwibGV2ZWwiOiJvcGVyYXRvciIsImlhdCI6MTYzMjQ4NzQ2NCwiZXhwIjoxNjMyNDk0NjY0fQ.8xgVj7b7_MqkM2OG62OVn5eKhBuqhO9O2vqmx6ixqAI
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImtleXJhIiwibGV2ZWwiOiJvcGVyYXRvciIsImlhdCI6MTYzMjQ5NDkxNSwiZXhwIjoxNjMyNTAyMTE1fQ.6d447UAyKIKoc8hBQ6LEh7q-aVx9V53fPheiCOewpZo
 
 {
     "product_id": 2,
-    "categ_name": "grab",
-    "service_fee": 21000
+    "categ_name": "gojek",
+    "service_fee": 20000
 }
 
 ###
 get http://127.0.0.1:3200/customer
 Content-Type: application/json
-Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImtleXJhIiwibGV2ZWwiOiJvcGVyYXRvciIsImlhdCI6MTYzMjQ4NzQ2NCwiZXhwIjoxNjMyNDk0NjY0fQ.8xgVj7b7_MqkM2OG62OVn5eKhBuqhO9O2vqmx6ixqAI
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImtleXJhIiwibGV2ZWwiOiJvcGVyYXRvciIsImlhdCI6MTYzMjQ5NjgwMCwiZXhwIjoxNjMyNTA0MDAwfQ.TIFPy-nDAUOtjyxxAuLwOmIDDMsGsjHYbJ6YNH9kyks
 
 {
-    "cust_name": "Reza",
+    "cust_name": "Ridwan",
     "notes": "Take away"
 }
 
 
 ###
-post http://127.0.0.1:3200/billings
+get http://127.0.0.1:3200/billings
 Content-Type: application/json
-Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImtleXJhIiwibGV2ZWwiOiJvcGVyYXRvciIsImlhdCI6MTYzMjQ3OTk5OSwiZXhwIjoxNjMyNDg3MTk5fQ.m3IfOgGcgmEmyJOQ8GfmdWoNHFQVjhGflEEImGcBpAI
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImtleXJhIiwibGV2ZWwiOiJvcGVyYXRvciIsImlhdCI6MTYzMjQ5NDkxNSwiZXhwIjoxNjMyNTAyMTE1fQ.6d447UAyKIKoc8hBQ6LEh7q-aVx9V53fPheiCOewpZo
 
 {
     "user_id": 1,
-    "cust_id": 3,
-    "category_id": 2
+    "cust_id": 2,
+    "category_id": 1
 }
 
 

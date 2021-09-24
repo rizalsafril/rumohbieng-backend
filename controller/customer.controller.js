@@ -19,15 +19,9 @@ exports.create = async(req, res) => {
     
         Customer.create(customer, (err, resp) => {
             if(err){
-                if(err.kind === 'exists'){
-                    res.status(403).send({
-                        message: 'This customer already exists'
-                    })
-                } else {
-                    res.status(500).send({
-                        message: err.message || 'Some errors occured'
-                    })
-                }
+                res.status(500).send({
+                    message: err.message || 'Some errors occured'
+                })
             } else res.status(201).send(resp);
         })
     }catch(err){

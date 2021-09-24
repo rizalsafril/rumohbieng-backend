@@ -59,7 +59,7 @@ exports.change = async(req, res) => {
 
 exports.removeOne = async(req, res) => {
     try{
-        Billings.removeOne(req.params.id, (err, res) => {
+        Billings.removeOne(req.params.id, (err, resp) => {
             if(err){
                 if(err.kind === 'not_found'){
                     res.status(403).send({

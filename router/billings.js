@@ -12,9 +12,6 @@ router.post('/', verifyToken, billings.create);
 //get spesific billings
 router.get('/:id', verifyToken, billings.findOne);
 
-//update billings
-router.put('/:id', verifyToken, billings.change);
-
 // delete by id
 router.delete('/:id', verifyToken, billings.removeOne);
 

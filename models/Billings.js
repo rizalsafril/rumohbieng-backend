@@ -18,6 +18,7 @@ Billings.create = (data, result) => {
     })
 }
 
+// this billing cannot be updated as references cascade from parents
 Billings.updateById = (id, data, result) => {
     db.query('UPDATE billings SET user_id = ?, cust_id = ?, category_id = ? where id = ?', [
         data.user_id, data.cust_id, data.category_id, id
@@ -64,7 +65,7 @@ Billings.removeAll = result => {
 }
 
 Billings.findAll = result => {
-    db.query('SELECT users.id, users.nama, customers.cust_name, categories.service_fee,'+
+    db.query('SELECT billings.id, users.id as userid, users.nama as operator, customers.cust_name, categories.service_fee,'+
     'products.product_name FROM billings LEFT JOIN users ON billings.user_id=users.id '+
     'LEFT JOIN customers ON billings.cust_id=customers.id '+
     'LEFT JOIN categories ON billings.category_id=categories.id '+ 
@@ -79,7 +80,11 @@ Billings.findAll = result => {
 }
 
 Billings.findOne = (id, result) => {
-    db.query('SELECT * FROM billings WHERE id = ?', [id], (err, res) => {
+    db.query('SELECT billings.id, users.id as userid, users.nama as operator, customers.cust_name, categories.service_fee,'+
+    'products.product_name FROM billings LEFT JOIN users ON billings.user_id=users.id '+
+    'LEFT JOIN customers ON billings.cust_id=customers.id '+
+    'LEFT JOIN categories ON billings.category_id=categories.id '+ 
+    'LEFT JOIN products ON categories.product_id=products.id WHERE billings.id = ?', [id], (err, res) => {
         if(err){
             result(err, null);
             return;

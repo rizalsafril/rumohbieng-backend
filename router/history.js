@@ -6,6 +6,9 @@ const history = require('../controller/history.controller');
 // get all histories
 router.get('/', verifyToken, history.findAll);
 
+//create history
+router.post('/', verifyToken, history.create);
+
 // get one history
 router.get('/:id', verifyToken, history.findOne);
 

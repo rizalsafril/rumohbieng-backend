@@ -56,22 +56,25 @@ const tableBilling = `create table if not exists billings(
     index(cust_id),
     index(category_id),
     
-    foreign key(user_id) references users(id) on update cascade on delete cascade,
-    foreign key(cust_id) references customers(id) on update cascade on delete cascade,
-    foreign key(category_id) references categories(id) on update cascade on delete cascade
+    foreign key(user_id) references users(id) on delete cascade on update cascade,
+    foreign key(cust_id) references customers(id) on delete cascade on update cascade,
+    foreign key(category_id) references categories(id) on delete cascade on update cascade
 )`;
 
 
 const tableHistory = `create table if not exists history(
     id int primary key auto_increment,
     user_id int not null,
+    cust_id int not null,
     category_id int not null,
-    time datetime default null,
+    time timestamp default current_timestamp,
     
     index(user_id),
+    index(cust_id),
     index(category_id),
     
     foreign key(user_id) references users(id) on update cascade on delete cascade,
+    foreign key(cust_id) references customers(id) on delete cascade on update cascade,
     foreign key(category_id) references categories(id) on update cascade on delete cascade
 )`;
 

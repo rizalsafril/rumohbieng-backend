@@ -6,23 +6,12 @@ const Customer = function(item){
 }
 
 Customer.create = (data, result) => {
-    db.query('SELECT * FROM customers WHERE cust_name = ?', [data.cust_name], (err, resp) => {
+    db.query('INSERT INTO customers SET ?', data, (err, resp) => {
         if(err){
             result(err, null);
             return;
-        } 
-        if(resp.length !== 0){
-            result({kind: 'exists'}, null);
-            return;
         }
-
-        db.query('INSERT INTO customers SET ?', data, (err, resp) => {
-            if(err){
-                result(err, null);
-                return;
-            }
-            result(null, {id: resp.insertId, ...data});
-        });
+        result(null, {id: resp.insertId, ...data});
     });
 }
 
